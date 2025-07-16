@@ -65,7 +65,26 @@ This is a simple Ruby web application with these key components:
 
 The fast-mcp gem acts as Rack middleware, so you only need to focus on implementing the two tool classes and the HN API integration.
 
-## Development Guidelines
+## Development Process
+
+### Project Planning and Tracking
+
+**IMPORTANT**: This project follows a structured development plan outlined in `DEVELOPMENT.md`. Always check this file first to understand:
+- Current project phase and progress
+- Remaining tasks and milestones
+- Task dependencies and order
+
+The plan is organized into 4 phases:
+1. **Phase 1**: Basic Sinatra Application
+2. **Phase 2**: Hacker News API Client  
+3. **Phase 3**: MCP Integration
+4. **Phase 4**: Production Deployment
+
+**When starting work:**
+1. Read `DEVELOPMENT.md` to understand current progress
+2. Update checkboxes as you complete tasks
+3. Focus on current phase tasks before moving to next phase
+4. Test thoroughly at each step
 
 ### Working with this codebase
 
