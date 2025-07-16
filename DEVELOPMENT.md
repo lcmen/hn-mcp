@@ -2,17 +2,17 @@
 
 ## Phase 1: Basic Sinatra Application
 ### 1.1 Project Setup
-- [ ] Create `Gemfile` with basic dependencies (Sinatra, mise configuration)
-- [ ] Set up project structure (lib/, test/, config/)
-- [ ] Create basic `app.rb` with simple Sinatra routes
-- [ ] Create `config.ru` for Rack configuration
-- [ ] Test basic server startup with `ruby app.rb`
+- [x] Create `Gemfile` with basic dependencies (Sinatra, mise configuration)
+- [x] Set up project structure (lib/, test/, config/)
+- [x] Create basic `app.rb` with simple Sinatra routes
+- [x] Create `config.ru` for Rack configuration
+- [x] Test basic server startup with `ruby app.rb`
 
 ### 1.2 Development Environment
-- [ ] Configure mise with Ruby 3.4.4
-- [ ] Set up minitest test structure
-- [ ] Create basic health check endpoint
-- [ ] Add development dependencies (minitest, webmock for testing)
+- [x] Configure mise with Ruby 3.4.4
+- [x] Set up minitest test structure
+- [x] Create basic health check endpoint
+- [x] Add development dependencies (minitest, webmock for testing)
 
 ## Phase 2: Hacker News API Client
 ### 2.1 HN API Research & Client Setup
@@ -96,7 +96,7 @@
 5. ✅ Dockerized and deployment-ready
 
 ## Progress Tracking
-- [ ] Phase 1 Complete
+- [x] Phase 1 Complete
 - [ ] Phase 2 Complete
 - [ ] Phase 3 Complete
 - [ ] Phase 4 Complete

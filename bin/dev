@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+
+bundle exec rerun --pattern '**/*.rb' 'bundle exec rackup'

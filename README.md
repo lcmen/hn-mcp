@@ -50,16 +50,16 @@ bundle install
 ### Run the Server
 ```bash
 # Start the server
-ruby app.rb
+bundle exec rackup
 
-# Or for development with auto-reload
-ruby app.rb -e development
+# For development with auto-reload
+bin/dev
 ```
 
 ### Testing
 ```bash
 # Run tests
-bundle exec rspec
+bin/test
 ```
 
 ## How it works
