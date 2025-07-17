@@ -1,3 +1,4 @@
+require_relative 'hacker_news'
 require 'sinatra'
 
 class HnMcpApp < Sinatra::Base

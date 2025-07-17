@@ -1,5 +1,3 @@
-require_relative 'helper'
-
 class TestApp < Minitest::Test
   def test_root_endpoint
     get '/'

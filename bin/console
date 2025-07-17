@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require_relative '../lib/hacker_news'
+
+require 'irb'
+
+puts "HackerNews MCP Server Console"
+puts "=============================="
+puts ""
+puts "Example usage:"
+puts "  client = HackerNews::Client.new"
+puts "  stories = client.get_top_stories(5)"
+puts "  comments = client.get_comments(stories.first.id)"
+puts ""
+
+IRB.start

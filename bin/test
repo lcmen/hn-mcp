@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -e
 
-bundle exec ruby -Itest test/test_*.rb
+bundle exec ruby -Ilib -Itest -rapp -rhelper  test/**/test_*.rb
