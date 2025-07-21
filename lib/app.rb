@@ -1,7 +1,14 @@
+RACK_ENV = ENV.fetch('RACK_ENV', 'development')
+
+require 'bundler'
+Bundler.require
+
+require_relative 'mcp_server'
 require_relative 'hacker_news'
-require 'sinatra'
 
 class HnMcpApp < Sinatra::Base
+  use FastMcp::Transports::RackTransport, McpServer.build
+
   before { content_type :json }
 
   get '/health' do
@@ -13,7 +20,8 @@ class HnMcpApp < Sinatra::Base
       message: 'Hacker News MCP Server',
       version: '1.0.0',
       endpoints: {
-        health: '/health'
+        health: '/health',
+        mcp: '/mcp'
       }
     }.to_json
   end
