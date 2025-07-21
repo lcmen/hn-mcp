@@ -1,12 +1,10 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Project Overview
+# Hacker News MCP Server
 
 This is a Hacker News MCP server built in Ruby using the [fast-mcp](https://github.com/yjacquin/fast-mcp) gem. The server runs as a Sinatra application and provides AI assistants with access to Hacker News data through two focused tools.
 
-**Purpose**: A learning project to understand MCP server architecture and demonstrate practical API integration.
+## Purpose
+
+A learning project to understand MCP server architecture and demonstrate practical API integration.
 
 ## Core Functionality
 
@@ -16,7 +14,7 @@ The server provides **exactly two tools**:
 - Fetches stories from different HN sections (top, new, best, ask, show, job)
 - Parameters: `story_type` (required), `limit` (optional, default 10)
 
-### `get_comments`  
+### `get_comments`
 - Fetches comments for a specific HN story
 - Parameters: `story_id` (required), `max_depth` (optional, default 3)
 
@@ -34,7 +32,7 @@ The server provides **exactly two tools**:
 # Install Ruby version
 mise install
 
-# Activate environment  
+# Activate environment
 mise use
 
 # Install dependencies
@@ -50,7 +48,7 @@ ruby app.rb
 ruby app.rb -e development
 
 # Run tests
-bundle exec ruby -Itest test/test_*.rb
+bin/test
 ```
 
 ## Architecture
@@ -69,19 +67,43 @@ The fast-mcp gem acts as Rack middleware, so you only need to focus on implement
 
 ### Project Planning and Tracking
 
-**IMPORTANT**: This project follows a structured development plan outlined in `DEVELOPMENT.md`. Always check this file first to understand:
-- Current project phase and progress
-- Remaining tasks and milestones
-- Task dependencies and order
+**IMPORTANT**: This project follows a structured development plan organized into 4 phases:
 
-The plan is organized into 4 phases:
-1. **Phase 1**: Basic Sinatra Application
-2. **Phase 2**: Hacker News API Client  
-3. **Phase 3**: MCP Integration
-4. **Phase 4**: Production Deployment
+#### Phase 1: Basic Sinatra Application ✅
+- [x] Create `Gemfile` with basic dependencies (Sinatra, mise configuration)
+- [x] Set up project structure (lib/, test/, config/)
+- [x] Create basic `app.rb` with simple Sinatra routes
+- [x] Create `config.ru` for Rack configuration
+- [x] Configure mise with Ruby 3.4.4
+- [x] Set up minitest test structure
+- [x] Create basic health check endpoint
+
+#### Phase 2: Hacker News API Client ✅
+- [x] Research HN Firebase API endpoints and implement client
+- [x] Create `lib/hacker_news/client.rb` class with Algolia API
+- [x] Implement story fetching (top, new, ask, show, job)
+- [x] Implement comment fetching with tree building
+- [x] Add error handling and HTTP client logic
+- [x] Write comprehensive tests with WebMock
+
+#### Phase 3: MCP Integration
+- [ ] Add `fast-mcp` gem to Gemfile
+- [ ] Create `lib/tools/get_stories_tool.rb` inheriting from `FastMcp::Tool`
+- [ ] Create `lib/tools/get_comments_tool.rb` inheriting from `FastMcp::Tool`
+- [ ] Define argument schemas for both tools
+- [ ] Update `app.rb` to use fast-mcp middleware
+- [ ] Test MCP protocol endpoints and tool discovery
+- [ ] Create integration tests for complete MCP workflow
+
+#### Phase 4: Production Deployment
+- [ ] Create multi-stage Dockerfile with Ruby 3.4.4
+- [ ] Add production-ready configuration
+- [ ] Configure environment variables and logging
+- [ ] Add health check endpoints
+- [ ] Update documentation with deployment instructions
 
 **When starting work:**
-1. Read `DEVELOPMENT.md` to understand current progress
+1. Check current phase progress above
 2. Update checkboxes as you complete tasks
 3. Focus on current phase tasks before moving to next phase
 4. Test thoroughly at each step
@@ -111,10 +133,13 @@ When implementing tools, follow this pattern:
 
 ### Hacker News API Integration
 
-- Use the official Firebase API: `https://hacker-news.firebaseio.com/v0/`
-- Key endpoints: `/topstories.json`, `/newstories.json`, `/item/{id}.json`
-- Implement basic caching to reduce API calls
-- Handle API failures with meaningful error messages
+Uses Algolia's HN Search API at `https://hn.algolia.com/api/v1/`:
+
+- **Stories**: `/search` with `tags` parameter (front_page, ask_hn, show_hn, job)
+- **New stories**: `/search_by_date` with `tags=story`
+- **Comments**: `/search` with `tags=comment` and `numericFilters=story_id=X`
+
+The client handles tree building for nested comments and limits depth.
 
 ### Testing
 

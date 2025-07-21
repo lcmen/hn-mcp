@@ -14,11 +14,6 @@ module HackerNews
       )
     end
 
-    def formatted_time
-      return nil unless time
-      Time.at(time).strftime('%Y-%m-%d %H:%M:%S')
-    end
-
     def comment_count
       descendants || 0
     end
@@ -27,7 +22,7 @@ module HackerNews
 
     def self.extract_type(tags)
       return nil unless tags
-      
+
       if tags.include?('ask_hn')
         'ask'
       elsif tags.include?('show_hn')

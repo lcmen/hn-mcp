@@ -7,15 +7,11 @@ module HackerNews
         time: data['created_at_i'],
         text: data['comment_text'],
         parent: data['parent_id'],
-        replies: (data['replies'] || []).map { |reply_data| Comment.from_api_data(reply_data) }
+        replies: (data['replies'] || []).map { |reply_data|
+          reply_data.is_a?(Comment) ? reply_data : Comment.from_api_data(reply_data)
+        }
       )
     end
-
-    def formatted_time
-      return nil unless time
-      Time.at(time).strftime('%Y-%m-%d %H:%M:%S')
-    end
-
 
     def reply_count
       replies.length

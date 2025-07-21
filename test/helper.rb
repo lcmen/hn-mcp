@@ -16,4 +16,16 @@ class Minitest::Test
   def setup
     WebMock.disable_net_connect!(allow_localhost: true)
   end
+
+  def assert_all_instance_of(expected_class, collection)
+    collection.each do |item|
+      assert_instance_of expected_class, item, "Expected #{item} to be an instance of #{expected_class}"
+    end
+  end
+
+  def assert_attributes(expected_attributes, object)
+    expected_attributes.each do |attr, expected_value|
+      assert_equal expected_value, object.public_send(attr), "Expected #{attr} to be #{expected_value}"
+    end
+  end
 end
