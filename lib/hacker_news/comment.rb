@@ -26,7 +26,6 @@ module HackerNews
         id: id,
         by: by,
         time: time,
-        formatted_time: formatted_time,
         text: text,
         parent: parent,
         reply_count: reply_count

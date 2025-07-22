@@ -3,13 +3,30 @@ RACK_ENV = ENV.fetch('RACK_ENV', 'development')
 require 'bundler'
 Bundler.require
 
-require_relative 'mcp_server'
 require_relative 'hacker_news'
+require_relative 'tools/get_stories'
+require_relative 'tools/get_comments'
 
-class HnMcpApp < Sinatra::Base
-  use FastMcp::Transports::RackTransport, McpServer.build
+def logger
+  @logger ||= Logger.new(STDOUT).tap do |log|
+    log.level = Logger::DEBUG if RACK_ENV == 'development'
+    log.progname = 'HnMcpApp'
+  end
+end
 
+def mcp_server
+  server = FastMcp::Server.new(name: 'hn-mcp', version: '1.0.0')
+  server.register_tool(GetStories)
+  server.register_tool(GetComments)
+  server
+end
+
+class HnMcpApp < Sinatra::Application
   before { content_type :json }
+
+  use FastMcp::Transports::RackTransport, mcp_server, logger: logger
+
+  set :logger, logger
 
   get '/health' do
     { status: 'ok', timestamp: Time.now.to_i }.to_json

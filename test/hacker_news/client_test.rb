@@ -89,7 +89,7 @@ class TestClient < Minitest::Test
       @client.get_top_stories
     end
 
-    assert_match /HTTP Error: 500/, error.message
+    assert_match(/HTTP Error: 500/, error.message)
   end
 
   def test_json_parsing_error
@@ -100,7 +100,7 @@ class TestClient < Minitest::Test
       @client.get_top_stories
     end
 
-    assert_match /unexpected token/, error.message
+    assert_match(/unexpected/, error.message)
   end
 
   private

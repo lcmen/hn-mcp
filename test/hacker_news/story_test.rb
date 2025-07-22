@@ -37,13 +37,12 @@ class TestStory < Minitest::Test
       descendants: nil,
       text: nil,
       type: nil,
-      comment_count: 0,
-      formatted_time: nil
+      comment_count: 0
     }, HackerNews::Story.from_api_data({
       'objectID' => 123,
       'title' => 'Test Story',
       'author' => 'testuser'
-    })
+    }))
 
   end
 
@@ -55,7 +54,6 @@ class TestStory < Minitest::Test
       score: 42,
       by: 'testuser',
       time: 1609459200,
-      formatted_time: @story.formatted_time,
       descendants: 10,
       text: 'Story text content',
       type: 'story',

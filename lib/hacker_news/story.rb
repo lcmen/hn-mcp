@@ -18,6 +18,10 @@ module HackerNews
       descendants || 0
     end
 
+    def to_h
+      super.merge(comment_count:)
+    end
+
     private
 
     def self.extract_type(tags)

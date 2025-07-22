@@ -25,7 +25,12 @@ class Minitest::Test
 
   def assert_attributes(expected_attributes, object)
     expected_attributes.each do |attr, expected_value|
-      assert_equal expected_value, object.public_send(attr), "Expected #{attr} to be #{expected_value}"
+      actual_value = object.public_send(attr)
+      if expected_value.nil?
+        assert_nil actual_value, "Expected #{attr} to be nil"
+      else
+        assert_equal expected_value, actual_value, "Expected #{attr} to be #{expected_value}"
+      end
     end
   end
 end

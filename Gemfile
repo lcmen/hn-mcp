@@ -19,3 +19,5 @@ end
 group :development, :test do
   gem 'rack-test', '~> 2.2'
 end
+
+gem "rake", "~> 13.3"

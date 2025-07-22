@@ -3,12 +3,13 @@ require_relative 'comment'
 
 module HackerNews
   class Parser
-    def self.parse_stories(story_data_array)
-      story_data_array.map { |story_data| Story.from_api_data(story_data) }.compact
+    def self.parse_stories(story_data)
+      story_data.filter_map { |data| parse_story(data) }.compact
     end
 
     def self.parse_story(story_data)
       return nil if story_data.nil?
+
       Story.from_api_data(story_data)
     end
 
@@ -28,7 +29,7 @@ module HackerNews
     def self.parse_nested_comments(comment_data_array, max_depth = 3, current_depth = 0)
       return [] if current_depth >= max_depth || comment_data_array.nil?
 
-      comment_data_array.map do |comment_data|
+      comment_data_array.filter_map do |comment_data|
         parse_comment(comment_data, max_depth, current_depth)
       end.compact
     end

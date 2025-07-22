@@ -57,7 +57,7 @@ This is a simple Ruby web application with these key components:
 
 - **`app.rb`**: Main Sinatra application that hosts the MCP server
 - **`config.ru`**: Rack configuration file
-- **Tool classes**: `GetStoriesTools` and `GetCommentsTool` that implement the two tools
+- **Tool classes**: `GetStories` and `GetComments` that implement the two tools
 - **HN API client**: Fetches data from Hacker News Firebase API
 - **fast-mcp gem**: Handles all MCP protocol details (JSON-RPC, validation, routing)
 
@@ -88,8 +88,8 @@ The fast-mcp gem acts as Rack middleware, so you only need to focus on implement
 
 #### Phase 3: MCP Integration
 - [ ] Add `fast-mcp` gem to Gemfile
-- [ ] Create `lib/tools/get_stories_tool.rb` inheriting from `FastMcp::Tool`
-- [ ] Create `lib/tools/get_comments_tool.rb` inheriting from `FastMcp::Tool`
+- [ ] Create `lib/tools/get_stories.rb` inheriting from `FastMcp::Tool`
+- [ ] Create `lib/tools/get_comments.rb` inheriting from `FastMcp::Tool`
 - [ ] Define argument schemas for both tools
 - [ ] Update `app.rb` to use fast-mcp middleware
 - [ ] Test MCP protocol endpoints and tool discovery
@@ -111,7 +111,7 @@ The fast-mcp gem acts as Rack middleware, so you only need to focus on implement
 ### Working with this codebase
 
 **Focus areas:**
-- Implement the two tool classes: `GetStoriesTools` and `GetCommentsTool`
+- Implement the two tool classes: `GetStories` and `GetComments`
 - Integrate with Hacker News Firebase API (`https://hacker-news.firebaseio.com/v0/`)
 - Write tests using minitest
 - Keep code simple and educational
