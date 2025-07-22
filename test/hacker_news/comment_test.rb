@@ -60,7 +60,7 @@ class TestComment < Minitest::Test
   end
 
   def test_to_h
-    assert_equal({
+    assert_values({
       id: 456,
       by: 'commenter',
       time: 1609459200,

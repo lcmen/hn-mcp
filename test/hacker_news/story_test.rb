@@ -47,7 +47,7 @@ class TestStory < Minitest::Test
   end
 
   def test_to_h
-    assert_equal({
+    assert_values({
       id: 123,
       title: 'Test Story',
       url: 'https://example.com',

@@ -15,7 +15,7 @@ class GetStoriesTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_type: 'top')
 
-      assert_equal({ story_type: 'top', limit: 10, count: 1 }, result.slice(:story_type, :limit, :count))
+      assert_values({ story_type: 'top', limit: 10, count: 1 }, result)
     end
   end
 
@@ -25,7 +25,7 @@ class GetStoriesTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_type: 'new')
 
-      assert_equal({ story_type: 'new', limit: 10, count: 1 }, result.slice(:story_type, :limit, :count))
+      assert_values({ story_type: 'new', limit: 10, count: 1 }, result)
     end
   end
 
@@ -35,7 +35,7 @@ class GetStoriesTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_type: 'best')
 
-      assert_equal({ story_type: 'best', limit: 10, count: 1 }, result.slice(:story_type, :limit, :count))
+      assert_values({ story_type: 'best', limit: 10, count: 1 }, result)
     end
   end
 
@@ -45,7 +45,7 @@ class GetStoriesTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_type: 'ask')
 
-      assert_equal({ story_type: 'ask', limit: 10, count: 1 }, result.slice(:story_type, :limit, :count))
+      assert_values({ story_type: 'ask', limit: 10, count: 1 }, result)
     end
   end
 
@@ -55,7 +55,7 @@ class GetStoriesTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_type: 'show')
 
-      assert_equal({ story_type: 'show', limit: 10, count: 1 }, result.slice(:story_type, :limit, :count))
+      assert_values({ story_type: 'show', limit: 10, count: 1 }, result)
     end
   end
 
@@ -65,7 +65,7 @@ class GetStoriesTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_type: 'job')
 
-      assert_equal({ story_type: 'job', limit: 10, count: 1 }, result.slice(:story_type, :limit, :count))
+      assert_values({ story_type: 'job', limit: 10, count: 1 }, result)
     end
   end
 
@@ -75,7 +75,7 @@ class GetStoriesTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_type: 'top', limit: 5)
 
-      assert_equal({ story_type: 'top', limit: 5, count: 1 }, result.slice(:story_type, :limit, :count))
+      assert_values({ story_type: 'top', limit: 5, count: 1 }, result)
     end
   end
 
@@ -95,7 +95,7 @@ class GetStoriesTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_type: 'top')
 
-      assert_equal({ story_type: 'top', count: 0, stories: [] }, result.slice(:story_type, :count, :stories))
+      assert_values({ story_type: 'top', count: 0, stories: [] }, result)
     end
   end
 
@@ -104,7 +104,7 @@ class GetStoriesTest < Minitest::Test
       result = @tool.call(story_type: 'invalid')
 
       assert_includes result[:error], 'Invalid story type: invalid'
-      assert_equal({ story_type: 'invalid', limit: 10 }, result.slice(:story_type, :limit))
+      assert_values({ story_type: 'invalid', limit: 10 }, result)
     end
   end
 
@@ -117,7 +117,7 @@ class GetStoriesTest < Minitest::Test
       result = @tool.call(story_type: 'top')
 
       assert_includes result[:error], 'Network timeout'
-      assert_equal({ story_type: 'top', limit: 10 }, result.slice(:story_type, :limit))
+      assert_values({ story_type: 'top', limit: 10 }, result)
     end
   end
 

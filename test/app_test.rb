@@ -11,10 +11,9 @@ class TestApp < Minitest::Test
     assert_equal 'application/json', last_response.content_type
 
     data = JSON.parse(last_response.body)
-    assert_equal 'Hacker News MCP Server', data['message']
-    assert_equal '1.0.0', data['version']
+    assert_values({ 'message' => 'Hacker News MCP Server', 'version' => '1.0.0' }, data)
     assert data['endpoints'].key?('health')
-    assert_equal '/mcp', data['endpoints']['mcp']
+    assert_values({ 'mcp' => '/mcp' }, data['endpoints'])
   end
 
   def test_health_endpoint
@@ -24,7 +23,7 @@ class TestApp < Minitest::Test
     assert_equal 'application/json', last_response.content_type
 
     data = JSON.parse(last_response.body)
-    assert_equal 'ok', data['status']
+    assert_values({ 'status' => 'ok' }, data)
     assert data['timestamp'].is_a?(Integer)
   end
 

@@ -17,7 +17,7 @@ class GetCommentsTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_id: 123)
 
-      assert_equal({ story_id: 123, max_depth: 3, count: 1 }, result.slice(:story_id, :max_depth, :count))
+      assert_values({ story_id: 123, max_depth: 3, count: 1 }, result)
     end
   end
 
@@ -27,7 +27,7 @@ class GetCommentsTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_id: 123, max_depth: 2)
 
-      assert_equal({ story_id: 123, max_depth: 2, count: 1 }, result.slice(:story_id, :max_depth, :count))
+      assert_values({ story_id: 123, max_depth: 2, count: 1 }, result)
     end
   end
 
@@ -37,7 +37,7 @@ class GetCommentsTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_id: 123)
 
-      assert_equal({ story_id: 123, count: 0, comments: [] }, result.slice(:story_id, :count, :comments))
+      assert_values({ story_id: 123, count: 0, comments: [] }, result)
     end
   end
 
