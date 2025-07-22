@@ -19,7 +19,7 @@ class GetComments < FastMcp::Tool
       story_id: story_id,
       max_depth: max_depth,
       count: (comments || []).sum(&:total_reply_count),
-      comments: comments.map(&:to_h)
+      comments: (comments || []).map(&:to_h)
     }
   rescue => e
     {

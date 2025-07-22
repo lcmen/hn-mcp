@@ -86,14 +86,14 @@ The fast-mcp gem acts as Rack middleware, so you only need to focus on implement
 - [x] Add error handling and HTTP client logic
 - [x] Write comprehensive tests with WebMock
 
-#### Phase 3: MCP Integration
-- [ ] Add `fast-mcp` gem to Gemfile
-- [ ] Create `lib/tools/get_stories.rb` inheriting from `FastMcp::Tool`
-- [ ] Create `lib/tools/get_comments.rb` inheriting from `FastMcp::Tool`
-- [ ] Define argument schemas for both tools
-- [ ] Update `app.rb` to use fast-mcp middleware
-- [ ] Test MCP protocol endpoints and tool discovery
-- [ ] Create integration tests for complete MCP workflow
+#### Phase 3: MCP Integration ✅
+- [x] Add `fast-mcp` gem to Gemfile
+- [x] Create `lib/tools/get_stories.rb` inheriting from `FastMcp::Tool`
+- [x] Create `lib/tools/get_comments.rb` inheriting from `FastMcp::Tool`
+- [x] Define argument schemas for both tools
+- [x] Update `app.rb` to use fast-mcp middleware
+- [x] Test MCP protocol endpoints and tool discovery
+- [x] Create integration tests for complete MCP workflow
 
 #### Phase 4: Production Deployment
 - [ ] Create multi-stage Dockerfile with Ruby 3.4.4

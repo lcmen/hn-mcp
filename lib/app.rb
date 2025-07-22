@@ -9,7 +9,12 @@ require_relative 'tools/get_comments'
 
 def logger
   @logger ||= Logger.new(STDOUT).tap do |log|
-    log.level = Logger::DEBUG if RACK_ENV == 'development'
+    log.level = case RACK_ENV
+                when 'development' then Logger::DEBUG
+                when 'production' then Logger::INFO
+                when 'test' then Logger::FATAL
+                else Logger::DEBUG
+                end
     log.progname = 'HnMcpApp'
   end
 end

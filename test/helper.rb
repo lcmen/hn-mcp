@@ -33,4 +33,15 @@ class Minitest::Test
       end
     end
   end
+
+  def assert_values(expected_values, hash)
+    expected_values.each do |key, expected_value|
+      actual_value = hash[key]
+      if expected_value.nil?
+        assert_nil actual_value, "Expected #{key} to be nil"
+      else
+        assert_equal expected_value, actual_value, "Expected #{key} to be #{expected_value}"
+      end
+    end
+  end
 end
