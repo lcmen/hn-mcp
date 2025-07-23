@@ -1,14 +1,14 @@
-require_relative '../hacker_news'
+require_relative "../hacker_news"
 
 class GetComments < FastMcp::Tool
-  description 'Fetches comments from Hacker News for a specific story.'
+  description "Fetches comments from Hacker News for a specific story."
   arguments do
     optional(:max_depth)
       .filled(:integer)
-      .description('Maximum depth of comment threads to fetch (default is 3)')
+      .description("Maximum depth of comment threads to fetch (default is 3)")
     required(:story_id)
       .filled(:integer)
-      .description('ID of the story to fetch comments for')
+      .description("ID of the story to fetch comments for")
   end
 
   def call(story_id:, max_depth: 3)

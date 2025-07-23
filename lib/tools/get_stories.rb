@@ -1,14 +1,14 @@
-require_relative '../hacker_news'
+require_relative "../hacker_news"
 
 class GetStories < FastMcp::Tool
-  description 'Fetches stories from Hacker News based on the specified type and limit.'
+  description "Fetches stories from Hacker News based on the specified type and limit."
   arguments do
     optional(:limit)
       .filled(:integer)
-      .description('Number of stories to fetch (default is 10)')
+      .description("Number of stories to fetch (default is 10)")
     required(:story_type)
       .filled(:string)
-      .description('Type of stories to fetch (top, new, best, ask, show, job)')
+      .description("Type of stories to fetch (top, new, best, ask, show, job)")
   end
 
   def call(story_type:, limit: 10)
@@ -33,12 +33,12 @@ class GetStories < FastMcp::Tool
   def get_stories(story_type, limit)
     client = HackerNews::Client.new
     case story_type
-    when 'top' then client.get_top_stories(limit)
-    when 'new' then client.get_new_stories(limit)
-    when 'best' then client.get_top_stories(limit)
-    when 'ask' then client.get_ask_stories(limit)
-    when 'show' then client.get_show_stories(limit)
-    when 'job' then client.get_job_stories(limit)
+    when "top" then client.get_top_stories(limit)
+    when "new" then client.get_new_stories(limit)
+    when "best" then client.get_top_stories(limit)
+    when "ask" then client.get_ask_stories(limit)
+    when "show" then client.get_show_stories(limit)
+    when "job" then client.get_job_stories(limit)
     else raise ArgumentError, "Invalid story type: #{story_type}"
     end
   end

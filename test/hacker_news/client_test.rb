@@ -1,4 +1,4 @@
-require_relative '../helper'
+require_relative "../helper"
 
 class TestClient < Minitest::Test
   def setup
@@ -8,18 +8,18 @@ class TestClient < Minitest::Test
 
   def test_get_top_stories
     stub_request(:get, "https://hn.algolia.com/api/v1/search?hitsPerPage=10&tags=front_page")
-      .to_return(status: 200, body: stories_response, headers: {'Content-Type' => 'application/json'})
+      .to_return(status: 200, body: stories_response, headers: {"Content-Type" => "application/json"})
 
     stories = @client.get_top_stories(10)
 
     assert_equal 2, stories.length
     assert_equal 123, stories.first.id
-    assert_equal 'Test Story 1', stories.first.title
+    assert_equal "Test Story 1", stories.first.title
   end
 
   def test_get_new_stories
     stub_request(:get, "https://hn.algolia.com/api/v1/search_by_date?hitsPerPage=5&tags=story")
-      .to_return(status: 200, body: stories_response, headers: {'Content-Type' => 'application/json'})
+      .to_return(status: 200, body: stories_response, headers: {"Content-Type" => "application/json"})
 
     stories = @client.get_new_stories(5)
 
@@ -29,7 +29,7 @@ class TestClient < Minitest::Test
 
   def test_get_ask_stories
     stub_request(:get, "https://hn.algolia.com/api/v1/search?hitsPerPage=10&tags=ask_hn")
-      .to_return(status: 200, body: stories_response, headers: {'Content-Type' => 'application/json'})
+      .to_return(status: 200, body: stories_response, headers: {"Content-Type" => "application/json"})
 
     stories = @client.get_ask_stories
 
@@ -39,7 +39,7 @@ class TestClient < Minitest::Test
 
   def test_get_show_stories
     stub_request(:get, "https://hn.algolia.com/api/v1/search?hitsPerPage=10&tags=show_hn")
-      .to_return(status: 200, body: stories_response, headers: {'Content-Type' => 'application/json'})
+      .to_return(status: 200, body: stories_response, headers: {"Content-Type" => "application/json"})
 
     stories = @client.get_show_stories
 
@@ -49,7 +49,7 @@ class TestClient < Minitest::Test
 
   def test_get_job_stories
     stub_request(:get, "https://hn.algolia.com/api/v1/search?hitsPerPage=10&tags=job")
-      .to_return(status: 200, body: stories_response, headers: {'Content-Type' => 'application/json'})
+      .to_return(status: 200, body: stories_response, headers: {"Content-Type" => "application/json"})
 
     stories = @client.get_job_stories
 
@@ -59,20 +59,20 @@ class TestClient < Minitest::Test
 
   def test_get_comments
     stub_request(:get, "https://hn.algolia.com/api/v1/search?hitsPerPage=1000&numericFilters=story_id%3D123&tags=comment")
-      .to_return(status: 200, body: comments_response, headers: {'Content-Type' => 'application/json'})
+      .to_return(status: 200, body: comments_response, headers: {"Content-Type" => "application/json"})
 
     comments = @client.get_comments(123, 2)
 
     assert_equal 1, comments.length
     assert_equal 456, comments.first.id
-    assert_equal 'commenter1', comments.first.by
+    assert_equal "commenter1", comments.first.by
     assert_equal 1, comments.first.replies.length
     assert_equal 789, comments.first.replies.first.id
   end
 
   def test_get_comments_with_max_depth
     stub_request(:get, "https://hn.algolia.com/api/v1/search?hitsPerPage=1000&numericFilters=story_id%3D123&tags=comment")
-      .to_return(status: 200, body: comments_nested_response, headers: {'Content-Type' => 'application/json'})
+      .to_return(status: 200, body: comments_nested_response, headers: {"Content-Type" => "application/json"})
 
     comments = @client.get_comments(123, 1)
 
@@ -94,7 +94,7 @@ class TestClient < Minitest::Test
 
   def test_json_parsing_error
     stub_request(:get, "https://hn.algolia.com/api/v1/search?hitsPerPage=10&tags=front_page")
-      .to_return(status: 200, body: "invalid json", headers: {'Content-Type' => 'application/json'})
+      .to_return(status: 200, body: "invalid json", headers: {"Content-Type" => "application/json"})
 
     error = assert_raises(JSON::ParserError) do
       @client.get_top_stories
@@ -107,24 +107,24 @@ class TestClient < Minitest::Test
 
   def stories_response
     {
-      'hits' => [
+      "hits" => [
         {
-          'objectID' => 123,
-          'title' => 'Test Story 1',
-          'author' => 'author1',
-          'created_at_i' => 1609459200,
-          'points' => 100,
-          'num_comments' => 50,
-          'url' => 'https://example.com/story1'
+          "objectID" => 123,
+          "title" => "Test Story 1",
+          "author" => "author1",
+          "created_at_i" => 1609459200,
+          "points" => 100,
+          "num_comments" => 50,
+          "url" => "https://example.com/story1"
         },
         {
-          'objectID' => 124,
-          'title' => 'Test Story 2',
-          'author' => 'author2',
-          'created_at_i' => 1609459300,
-          'points' => 75,
-          'num_comments' => 25,
-          'url' => 'https://example.com/story2'
+          "objectID" => 124,
+          "title" => "Test Story 2",
+          "author" => "author2",
+          "created_at_i" => 1609459300,
+          "points" => 75,
+          "num_comments" => 25,
+          "url" => "https://example.com/story2"
         }
       ]
     }.to_json
@@ -132,21 +132,21 @@ class TestClient < Minitest::Test
 
   def comments_response
     {
-      'hits' => [
+      "hits" => [
         {
-          'objectID' => 456,
-          'author' => 'commenter1',
-          'created_at_i' => 1609459200,
-          'comment_text' => 'Root comment',
-          'story_id' => 123
+          "objectID" => 456,
+          "author" => "commenter1",
+          "created_at_i" => 1609459200,
+          "comment_text" => "Root comment",
+          "story_id" => 123
         },
         {
-          'objectID' => 789,
-          'author' => 'commenter2',
-          'created_at_i' => 1609459300,
-          'comment_text' => 'Reply comment',
-          'parent_id' => 456,
-          'story_id' => 123
+          "objectID" => 789,
+          "author" => "commenter2",
+          "created_at_i" => 1609459300,
+          "comment_text" => "Reply comment",
+          "parent_id" => 456,
+          "story_id" => 123
         }
       ]
     }.to_json
@@ -154,29 +154,29 @@ class TestClient < Minitest::Test
 
   def comments_nested_response
     {
-      'hits' => [
+      "hits" => [
         {
-          'objectID' => 456,
-          'author' => 'commenter1',
-          'created_at_i' => 1609459200,
-          'comment_text' => 'Root comment',
-          'story_id' => 123
+          "objectID" => 456,
+          "author" => "commenter1",
+          "created_at_i" => 1609459200,
+          "comment_text" => "Root comment",
+          "story_id" => 123
         },
         {
-          'objectID' => 789,
-          'author' => 'commenter2',
-          'created_at_i' => 1609459300,
-          'comment_text' => 'Reply comment',
-          'parent_id' => 456,
-          'story_id' => 123
+          "objectID" => 789,
+          "author" => "commenter2",
+          "created_at_i" => 1609459300,
+          "comment_text" => "Reply comment",
+          "parent_id" => 456,
+          "story_id" => 123
         },
         {
-          'objectID' => 790,
-          'author' => 'commenter3',
-          'created_at_i' => 1609459400,
-          'comment_text' => 'Deep reply',
-          'parent_id' => 789,
-          'story_id' => 123
+          "objectID" => 790,
+          "author" => "commenter3",
+          "created_at_i" => 1609459400,
+          "comment_text" => "Deep reply",
+          "parent_id" => 789,
+          "story_id" => 123
         }
       ]
     }.to_json

@@ -1,22 +1,22 @@
 class TestComment < Minitest::Test
   def setup
     @comment = HackerNews::Comment.from_api_data({
-      'objectID' => 456,
-      'author' => 'commenter',
-      'created_at_i' => 1609459200,
-      'comment_text' => 'Parent comment',
-      'parent_id' => 123,
-      'replies' => [
+      "objectID" => 456,
+      "author" => "commenter",
+      "created_at_i" => 1609459200,
+      "comment_text" => "Parent comment",
+      "parent_id" => 123,
+      "replies" => [
         {
-          'objectID' => 789,
-          'author' => 'replier1',
-          'comment_text' => 'Reply comment',
-          'parent_id' => 456,
-          'replies' => [
-            { 'objectID' => 791, 'author' => 'nested_replier', 'comment_text' => 'Nested reply', 'replies' => [] }
+          "objectID" => 789,
+          "author" => "replier1",
+          "comment_text" => "Reply comment",
+          "parent_id" => 456,
+          "replies" => [
+            {"objectID" => 791, "author" => "nested_replier", "comment_text" => "Nested reply", "replies" => []}
           ]
         },
-        { 'objectID' => 790, 'author' => 'replier2', 'comment_text' => 'Another reply', 'replies' => [] }
+        {"objectID" => 790, "author" => "replier2", "comment_text" => "Another reply", "replies" => []}
       ]
     })
   end
@@ -24,9 +24,9 @@ class TestComment < Minitest::Test
   def test_from_api_data
     assert_attributes({
       id: 456,
-      by: 'commenter',
+      by: "commenter",
       time: 1609459200,
-      text: 'Parent comment',
+      text: "Parent comment",
       parent: 123,
       reply_count: 2,
       total_reply_count: 3
@@ -34,27 +34,27 @@ class TestComment < Minitest::Test
 
     assert_attributes({
       id: 456,
-      by: 'commenter',
+      by: "commenter",
       time: nil,
       text: nil,
       parent: nil,
       replies: [],
-      reply_count: 0,
-    }, HackerNews::Comment.from_api_data({'objectID' => 456, 'author' => 'commenter'}))
+      reply_count: 0
+    }, HackerNews::Comment.from_api_data({"objectID" => 456, "author" => "commenter"}))
   end
 
   def test_nested_replies
     reply1, reply2 = @comment.replies
     assert_attributes({
       id: 789,
-      by: 'replier1',
-      text: 'Reply comment',
+      by: "replier1",
+      text: "Reply comment",
       parent: 456
     }, reply1)
     assert_attributes({
       id: 790,
-      by: 'replier2',
-      text: 'Another reply',
+      by: "replier2",
+      text: "Another reply",
       parent: nil
     }, reply2)
   end
@@ -62,25 +62,25 @@ class TestComment < Minitest::Test
   def test_to_h
     assert_values({
       id: 456,
-      by: 'commenter',
+      by: "commenter",
       time: 1609459200,
-      text: 'Parent comment',
+      text: "Parent comment",
       parent: 123,
       reply_count: 2,
       replies: [
         {
           id: 789,
-          by: 'replier1',
+          by: "replier1",
           time: nil,
-          text: 'Reply comment',
+          text: "Reply comment",
           parent: 456,
           reply_count: 1,
           replies: [
             {
               id: 791,
-              by: 'nested_replier',
+              by: "nested_replier",
               time: nil,
-              text: 'Nested reply',
+              text: "Nested reply",
               parent: nil,
               reply_count: 0,
               replies: []
@@ -89,9 +89,9 @@ class TestComment < Minitest::Test
         },
         {
           id: 790,
-          by: 'replier2',
+          by: "replier2",
           time: nil,
-          text: 'Another reply',
+          text: "Another reply",
           parent: nil,
           reply_count: 0,
           replies: []

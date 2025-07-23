@@ -1,0 +1,18 @@
+# StandardRB configuration for the Hacker News MCP Server
+# https://github.com/standardrb/standard
+
+ruby_version: 3.4
+
+# Additional file patterns to lint (beyond the defaults)
+# Standard already includes: {app,bin,config,lib}/**/*.rb, *.rb
+include_paths:
+  - "**/*.rb"
+
+# Files or patterns to ignore
+ignore:
+  - "vendor/**/*"
+  - "tmp/**/*"
+  - "log/**/*"
+
+# Enforce specific cops that are important for this project
+# (Standard handles most of the configuration automatically)

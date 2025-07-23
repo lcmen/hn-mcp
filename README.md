@@ -60,6 +60,15 @@ bin/dev
 ```bash
 # Run tests
 bin/test
+
+# Run linter
+bundle exec rake lint
+
+# Run linter with autofix
+bundle exec rake lint_fix
+
+# Run both linter and tests
+bundle exec rake
 ```
 
 ## How it works

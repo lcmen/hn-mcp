@@ -10,80 +10,80 @@ class GetStoriesTest < Minitest::Test
   end
 
   def test_successful_top_stories_fetch
-    @mock_client.expect(:get_top_stories, mock_stories(type: 'story'), [10])
+    @mock_client.expect(:get_top_stories, mock_stories(type: "story"), [10])
 
     HackerNews::Client.stub(:new, @mock_client) do
-      result = @tool.call(story_type: 'top')
+      result = @tool.call(story_type: "top")
 
-      assert_values({ story_type: 'top', limit: 10, count: 1 }, result)
+      assert_values({story_type: "top", limit: 10, count: 1}, result)
     end
   end
 
   def test_successful_new_stories_fetch
-    @mock_client.expect(:get_new_stories, mock_stories(type: 'story'), [10])
+    @mock_client.expect(:get_new_stories, mock_stories(type: "story"), [10])
 
     HackerNews::Client.stub(:new, @mock_client) do
-      result = @tool.call(story_type: 'new')
+      result = @tool.call(story_type: "new")
 
-      assert_values({ story_type: 'new', limit: 10, count: 1 }, result)
+      assert_values({story_type: "new", limit: 10, count: 1}, result)
     end
   end
 
   def test_successful_best_stories_fetch
-    @mock_client.expect(:get_top_stories, mock_stories(type: 'story'), [10])
+    @mock_client.expect(:get_top_stories, mock_stories(type: "story"), [10])
 
     HackerNews::Client.stub(:new, @mock_client) do
-      result = @tool.call(story_type: 'best')
+      result = @tool.call(story_type: "best")
 
-      assert_values({ story_type: 'best', limit: 10, count: 1 }, result)
+      assert_values({story_type: "best", limit: 10, count: 1}, result)
     end
   end
 
   def test_successful_ask_stories_fetch
-    @mock_client.expect(:get_ask_stories, mock_stories(type: 'ask'), [10])
+    @mock_client.expect(:get_ask_stories, mock_stories(type: "ask"), [10])
 
     HackerNews::Client.stub(:new, @mock_client) do
-      result = @tool.call(story_type: 'ask')
+      result = @tool.call(story_type: "ask")
 
-      assert_values({ story_type: 'ask', limit: 10, count: 1 }, result)
+      assert_values({story_type: "ask", limit: 10, count: 1}, result)
     end
   end
 
   def test_successful_show_stories_fetch
-    @mock_client.expect(:get_show_stories, mock_stories(type: 'show'), [10])
+    @mock_client.expect(:get_show_stories, mock_stories(type: "show"), [10])
 
     HackerNews::Client.stub(:new, @mock_client) do
-      result = @tool.call(story_type: 'show')
+      result = @tool.call(story_type: "show")
 
-      assert_values({ story_type: 'show', limit: 10, count: 1 }, result)
+      assert_values({story_type: "show", limit: 10, count: 1}, result)
     end
   end
 
   def test_successful_job_stories_fetch
-    @mock_client.expect(:get_job_stories, mock_stories(type: 'job'), [10])
+    @mock_client.expect(:get_job_stories, mock_stories(type: "job"), [10])
 
     HackerNews::Client.stub(:new, @mock_client) do
-      result = @tool.call(story_type: 'job')
+      result = @tool.call(story_type: "job")
 
-      assert_values({ story_type: 'job', limit: 10, count: 1 }, result)
+      assert_values({story_type: "job", limit: 10, count: 1}, result)
     end
   end
 
   def test_custom_limit_parameter
-    @mock_client.expect(:get_top_stories, mock_stories(type: 'story'), [5])
+    @mock_client.expect(:get_top_stories, mock_stories(type: "story"), [5])
 
     HackerNews::Client.stub(:new, @mock_client) do
-      result = @tool.call(story_type: 'top', limit: 5)
+      result = @tool.call(story_type: "top", limit: 5)
 
-      assert_values({ story_type: 'top', limit: 5, count: 1 }, result)
+      assert_values({story_type: "top", limit: 5, count: 1}, result)
     end
   end
 
   def test_default_limit_behavior
-    @mock_client.expect(:get_top_stories, mock_stories(type: 'story'), [10])
+    @mock_client.expect(:get_top_stories, mock_stories(type: "story"), [10])
 
     HackerNews::Client.stub(:new, @mock_client) do
-      result = @tool.call(story_type: 'top')
+      result = @tool.call(story_type: "top")
 
       assert_equal 10, result[:limit]
     end
@@ -93,18 +93,18 @@ class GetStoriesTest < Minitest::Test
     @mock_client.expect(:get_top_stories, [], [10])
 
     HackerNews::Client.stub(:new, @mock_client) do
-      result = @tool.call(story_type: 'top')
+      result = @tool.call(story_type: "top")
 
-      assert_values({ story_type: 'top', count: 0, stories: [] }, result)
+      assert_values({story_type: "top", count: 0, stories: []}, result)
     end
   end
 
   def test_invalid_story_type_error_handling
     HackerNews::Client.stub(:new, @mock_client) do
-      result = @tool.call(story_type: 'invalid')
+      result = @tool.call(story_type: "invalid")
 
-      assert_includes result[:error], 'Invalid story type: invalid'
-      assert_values({ story_type: 'invalid', limit: 10 }, result)
+      assert_includes result[:error], "Invalid story type: invalid"
+      assert_values({story_type: "invalid", limit: 10}, result)
     end
   end
 
@@ -114,23 +114,23 @@ class GetStoriesTest < Minitest::Test
     end
 
     HackerNews::Client.stub(:new, @mock_client) do
-      result = @tool.call(story_type: 'top')
+      result = @tool.call(story_type: "top")
 
-      assert_includes result[:error], 'Network timeout'
-      assert_values({ story_type: 'top', limit: 10 }, result)
+      assert_includes result[:error], "Network timeout"
+      assert_values({story_type: "top", limit: 10}, result)
     end
   end
 
   private
 
-  def mock_stories(type: 'story')
+  def mock_stories(type: "story")
     [
       HackerNews::Story.new(
         id: 123,
-        title: 'Test Story',
-        url: 'https://example.com',
+        title: "Test Story",
+        url: "https://example.com",
         score: 100,
-        by: 'author1',
+        by: "author1",
         time: 1609459200,
         descendants: 50,
         text: nil,

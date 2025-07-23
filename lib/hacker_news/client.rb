@@ -1,42 +1,42 @@
-require 'net/http'
-require 'json'
-require 'uri'
+require "net/http"
+require "json"
+require "uri"
 
 module HackerNews
   class Client
-    BASE_URL = 'https://hn.algolia.com/api/v1'
+    BASE_URL = "https://hn.algolia.com/api/v1"
 
     def initialize
       @uri = URI(BASE_URL)
     end
 
     def get_top_stories(limit = 10)
-      response = make_request('/search', { tags: 'front_page', hitsPerPage: limit })
+      response = make_request("/search", {tags: "front_page", hitsPerPage: limit})
       parse_stories(response)
     end
 
     def get_new_stories(limit = 10)
-      response = make_request('/search_by_date', { tags: 'story', hitsPerPage: limit })
+      response = make_request("/search_by_date", {tags: "story", hitsPerPage: limit})
       parse_stories(response)
     end
 
     def get_ask_stories(limit = 10)
-      response = make_request('/search', { tags: 'ask_hn', hitsPerPage: limit })
+      response = make_request("/search", {tags: "ask_hn", hitsPerPage: limit})
       parse_stories(response)
     end
 
     def get_show_stories(limit = 10)
-      response = make_request('/search', { tags: 'show_hn', hitsPerPage: limit })
+      response = make_request("/search", {tags: "show_hn", hitsPerPage: limit})
       parse_stories(response)
     end
 
     def get_job_stories(limit = 10)
-      response = make_request('/search', { tags: 'job', hitsPerPage: limit })
+      response = make_request("/search", {tags: "job", hitsPerPage: limit})
       parse_stories(response)
     end
 
     def get_comments(story_id, max_depth = 3)
-      response = make_request('/search', { tags: 'comment', numericFilters: "story_id=#{story_id}", hitsPerPage: 1000 })
+      response = make_request("/search", {tags: "comment", numericFilters: "story_id=#{story_id}", hitsPerPage: 1000})
       parse_comments(response, max_depth)
     end
 
@@ -58,12 +58,12 @@ module HackerNews
 
     def parse_comments(response, max_depth)
       data = JSON.parse(response.body)
-      Parser.parse_comments(data['hits'], max_depth)
+      Parser.parse_comments(data["hits"], max_depth)
     end
 
     def parse_stories(response)
       data = JSON.parse(response.body)
-      Parser.parse_stories(data['hits'])
+      Parser.parse_stories(data["hits"])
     end
   end
 end

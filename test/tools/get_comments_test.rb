@@ -1,4 +1,4 @@
-require_relative '../helper'
+require_relative "../helper"
 
 class GetCommentsTest < Minitest::Test
   def setup
@@ -17,7 +17,7 @@ class GetCommentsTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_id: 123)
 
-      assert_values({ story_id: 123, max_depth: 3, count: 1 }, result)
+      assert_values({story_id: 123, max_depth: 3, count: 1}, result)
     end
   end
 
@@ -27,7 +27,7 @@ class GetCommentsTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_id: 123, max_depth: 2)
 
-      assert_values({ story_id: 123, max_depth: 2, count: 1 }, result)
+      assert_values({story_id: 123, max_depth: 2, count: 1}, result)
     end
   end
 
@@ -37,7 +37,7 @@ class GetCommentsTest < Minitest::Test
     HackerNews::Client.stub(:new, @mock_client) do
       result = @tool.call(story_id: 123)
 
-      assert_values({ story_id: 123, count: 0, comments: [] }, result)
+      assert_values({story_id: 123, count: 0, comments: []}, result)
     end
   end
 
@@ -59,16 +59,16 @@ class GetCommentsTest < Minitest::Test
     [
       HackerNews::Comment.new(
         id: 456,
-        by: 'user1',
+        by: "user1",
         time: 1609459200,
-        text: 'Root comment',
+        text: "Root comment",
         parent: nil,
         replies: [
           HackerNews::Comment.new(
             id: 789,
-            by: 'user2',
+            by: "user2",
             time: 1609459300,
-            text: 'Reply 1',
+            text: "Reply 1",
             parent: 456,
             replies: []
           )

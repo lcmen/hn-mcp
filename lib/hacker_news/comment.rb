@@ -2,12 +2,12 @@ module HackerNews
   Comment = Data.define(:id, :by, :time, :text, :parent, :replies) do
     def self.from_api_data(data)
       new(
-        id: data['objectID'],
-        by: data['author'],
-        time: data['created_at_i'],
-        text: data['comment_text'],
-        parent: data['parent_id'],
-        replies: (data['replies'] || []).map { |reply_data|
+        id: data["objectID"],
+        by: data["author"],
+        time: data["created_at_i"],
+        text: data["comment_text"],
+        parent: data["parent_id"],
+        replies: (data["replies"] || []).map { |reply_data|
           reply_data.is_a?(Comment) ? reply_data : Comment.from_api_data(reply_data)
         }
       )
