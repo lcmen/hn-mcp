@@ -38,27 +38,23 @@ class TestParser < Minitest::Test
         "objectID" => 456,
         "author" => "user1",
         "comment_text" => "First comment",
-        "replies" => []
       },
       {
         "objectID" => 457,
         "author" => "user2",
         "comment_text" => "Second comment",
-        "replies" => []
       },
       {
         "objectID" => 458,
         "author" => "user3",
         "comment_text" => "Deleted comment",
         "deleted" => true,
-        "replies" => []
       },
       {
         "objectID" => 459,
         "author" => "user4",
         "comment_text" => "Dead comment",
         "dead" => true,
-        "replies" => []
       }
     ]
 
@@ -90,22 +86,19 @@ class TestParser < Minitest::Test
       {
         "objectID" => 456,
         "author" => "user1",
-        "comment_text" => "Level 1",
-        "replies" => [
-          {
-            "objectID" => 789,
-            "author" => "user2",
-            "comment_text" => "Level 2",
-            "replies" => [
-              {
-                "objectID" => 790,
-                "author" => "user3",
-                "comment_text" => "Level 3",
-                "replies" => []
-              }
-            ]
-          }
-        ]
+        "comment_text" => "Level 1"
+      },
+      {
+        "objectID" => 789,
+        "author" => "user2",
+        "comment_text" => "Level 2",
+        "parent_id" => 456
+      },
+      {
+        "objectID" => 790,
+        "author" => "user3",
+        "comment_text" => "Level 3",
+        "parent_id" => 789
       }
     ]
 
@@ -126,14 +119,14 @@ class TestParser < Minitest::Test
       id: 789,
       by: "user2",
       text: "Level 2",
-      parent: nil,
+      parent: 456,
       reply_count: 1
     }, child)
     assert_attributes({
       id: 790,
       by: "user3",
       text: "Level 3",
-      parent: nil,
+      parent: 789,
       reply_count: 0
     }, child.replies.first)
 

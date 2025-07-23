@@ -14,38 +14,14 @@ module HackerNews
     end
 
     def self.parse_comments(comments_array, max_depth = 3)
-      return [] if comments_array.nil? || comments_array.empty?
-
-      # If comments are already nested (have 'replies' key), parse directly
-      if comments_array.first&.key?("replies")
-        return parse_nested_comments(comments_array, max_depth, 0)
+      comments_array = (comments_array || []).reject do |comment|
+        comment["deleted"] || comment["dead"]
       end
+      return [] if comments_array.nil? || comments_array.empty?
 
       # Build comment tree from flat list
       comment_tree = build_comment_tree(comments_array, max_depth)
-      parse_nested_comments(comment_tree, max_depth, 0)
-    end
-
-    def self.parse_nested_comments(comment_data_array, max_depth = 3, current_depth = 0)
-      return [] if current_depth >= max_depth || comment_data_array.nil?
-
-      comment_data_array.filter_map do |comment_data|
-        parse_comment(comment_data, max_depth, current_depth)
-      end.compact
-    end
-
-    def self.parse_comment(comment_data, max_depth = 3, current_depth = 0)
-      return nil if comment_data.nil? || comment_data["deleted"] || comment_data["dead"]
-
-      # Parse nested replies if they exist and we haven't reached max depth
-      replies = []
-      if comment_data["replies"] && current_depth < max_depth - 1
-        replies = parse_nested_comments(comment_data["replies"], max_depth, current_depth + 1)
-      end
-
-      # Create new comment data with parsed replies
-      parsed_comment_data = comment_data.merge("replies" => replies)
-      Comment.from_api_data(parsed_comment_data)
+      comment_tree.map { |comment| Comment.from_api_data(comment) }
     end
 
     def self.build_comment_tree(comments, max_depth)
