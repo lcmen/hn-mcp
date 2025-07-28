@@ -1,0 +1,68 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+docs/
+
+# Development files
+.env
+.env.*
+docker-compose.yml
+
+# Test files
+test/
+spec/
+
+# Development dependencies
+.bundle/
+vendor/bundle/
+
+# Logs
+*.log
+log/
+logs/
+
+# Temporary files
+tmp/
+.tmp/
+
+# Cache
+.cache/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Ruby specific
+.ruby-version
+.ruby-gemset
+.rvmrc
+
+# Mise/asdf
+.tool-versions
+mise.toml
+
+# Development tools
+.standard.yml
+.rubocop.yml
+
+# Build artifacts
+pkg/
+*.gem
+
+# Coverage reports
+coverage/
+
+# Other development files
+Rakefile
+bin/test
+bin/console

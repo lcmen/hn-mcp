@@ -10,6 +10,8 @@ WORKDIR /app
 
 COPY Gemfile Gemfile.lock ./
 
+RUN mkdir -p tmp/pids
+
 RUN bundle install --deployment --without development test --jobs=4 --retry=3
 
 COPY . ./
@@ -22,6 +24,8 @@ USER ruby
 
 FROM build AS base
 
-RUN bundle exec bootsnap precompile --gemfile . || true
+# Health check
+HEALTHCHECK --interval=10s --timeout=1s --start-period=3s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:${PORT:-3000}/health || exit 1
 
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
