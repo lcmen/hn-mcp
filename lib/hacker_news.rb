@@ -4,6 +4,16 @@ require_relative "hacker_news/comment"
 require_relative "hacker_news/parser"
 
 module HackerNews
+  def self.auth_token
+    ENV.fetch("AUTH_TOKEN") do
+      if ENV["RACK_ENV"] == "production"
+        raise "AUTH_TOKEN environment variable is not set"
+      else
+        "token"
+      end
+    end
+  end
+
   def self.logger
     @logger ||= Logger.new($stdout).tap do |log|
       log.level = case RACK_ENV

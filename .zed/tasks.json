@@ -1,0 +1,17 @@
+[
+  {
+    "label": "Test /$ZED_CUSTOM_RUBY_TEST_NAME/",
+    "command": "bundle",
+    "args": [
+      "exec",
+      "ruby",
+      "-Itest",
+      "-rhelper",
+      "$ZED_RELATIVE_FILE",
+      "-n",
+      "\"$ZED_CUSTOM_RUBY_TEST_NAME\""
+    ],
+    "hide": "on_success",
+    "tags": ["ruby-test"]
+  }
+]

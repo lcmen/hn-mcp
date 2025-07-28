@@ -4,13 +4,18 @@ require "bundler"
 Bundler.require
 
 require_relative "hacker_news"
+require_relative "middleware/downcase_headers"
+require_relative "middleware/hijack_response"
 require_relative "tools/get_stories"
 require_relative "tools/get_comments"
 
 class HnMcpApp < Sinatra::Application
   before { content_type :json }
 
-  use FastMcp::Transports::RackTransport, HackerNews.mcp_server, logger: HackerNews.logger
+  use DowncaseHeaders
+  use HijackResponse
+  use FastMcp::Transports::AuthenticatedRackTransport, HackerNews.mcp_server,
+    auth_token: HackerNews.auth_token, logger: HackerNews.logger
 
   set :logger, HackerNews.logger
 
