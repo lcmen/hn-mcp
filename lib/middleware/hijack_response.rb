@@ -8,7 +8,7 @@ module Middleware
 
     def call(env)
       status, headers, body = @app.call(env)
-      status = 200 if status.negative?
+      status = 200 unless status.positive?
 
       [status, headers, body]
     end

@@ -37,24 +37,24 @@ class TestParser < Minitest::Test
       {
         "objectID" => 456,
         "author" => "user1",
-        "comment_text" => "First comment",
+        "comment_text" => "First comment"
       },
       {
         "objectID" => 457,
         "author" => "user2",
-        "comment_text" => "Second comment",
+        "comment_text" => "Second comment"
       },
       {
         "objectID" => 458,
         "author" => "user3",
         "comment_text" => "Deleted comment",
-        "deleted" => true,
+        "deleted" => true
       },
       {
         "objectID" => 459,
         "author" => "user4",
         "comment_text" => "Dead comment",
-        "dead" => true,
+        "dead" => true
       }
     ]
 
