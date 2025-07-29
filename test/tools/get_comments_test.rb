@@ -3,7 +3,7 @@ require_relative "../helper"
 class GetCommentsTest < Minitest::Test
   def setup
     super
-    @tool = GetComments.new
+    @tool = Tools::GetComments.new
     @mock_client = Minitest::Mock.new
   end
 

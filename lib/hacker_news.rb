@@ -1,8 +1,3 @@
-require_relative "hacker_news/client"
-require_relative "hacker_news/story"
-require_relative "hacker_news/comment"
-require_relative "hacker_news/parser"
-
 module HackerNews
   def self.auth_token
     ENV.fetch("AUTH_TOKEN") do
@@ -28,8 +23,8 @@ module HackerNews
 
   def self.mcp_server
     server = FastMcp::Server.new(name: "hn-mcp", version: "1.0.0")
-    server.register_tool(GetStories)
-    server.register_tool(GetComments)
+    server.register_tool(Tools::GetStories)
+    server.register_tool(Tools::GetComments)
     server
   end
 end

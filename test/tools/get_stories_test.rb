@@ -1,7 +1,7 @@
 class GetStoriesTest < Minitest::Test
   def setup
     super
-    @tool = GetStories.new
+    @tool = Tools::GetStories.new
     @mock_client = Minitest::Mock.new
   end
 

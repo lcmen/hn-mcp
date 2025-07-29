@@ -1,3 +1,5 @@
+require "active_support/core_ext/hash/except"
+
 class TestApp < Minitest::Test
   def setup
     super
@@ -132,11 +134,54 @@ class TestApp < Minitest::Test
     assert_equal 200, last_response.status
   end
 
+  def test_mcp_request_without_auth_token_rejected
+    payload = {
+      jsonrpc: "2.0",
+      id: "test-123",
+      method: "tools/list",
+      params: {}
+    }
+    post "/mcp/messages", payload.to_json, mcp_headers.except("HTTP_AUTHORIZATION")
+
+    assert_equal 401, last_response.status
+  end
+
+  def test_mcp_request_with_invalid_auth_token_rejected
+    payload = {
+      jsonrpc: "2.0",
+      id: "test-123",
+      method: "tools/list",
+      params: {}
+    }
+    headers = mcp_headers.merge("HTTP_AUTHORIZATION" => "Bearer invalid-token")
+    post "/mcp/messages", payload.to_json, headers
+
+    assert_equal 401, last_response.status
+  end
+
+  def test_health_endpoint_does_not_require_authentication
+    get "/health"
+
+    assert last_response.ok?
+    assert_equal "application/json", last_response.content_type
+
+    data = JSON.parse(last_response.body)
+    assert_values({"status" => "ok"}, data)
+    assert data["timestamp"].is_a?(Integer)
+  end
+
+  def test_mcp_sse_endpoint_requires_authentication
+    get "/mcp/sse"
+
+    assert_equal 401, last_response.status
+  end
+
   private
 
   def mcp_headers
     {
       "CONTENT_TYPE" => "application/json",
+      "HTTP_AUTHORIZATION" => "Bearer token",
       "HTTP_ORIGIN" => "http://localhost",
       "SERVER_NAME" => "localhost",
       "SERVER_PORT" => "3000"

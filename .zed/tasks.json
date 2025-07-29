@@ -1,5 +1,12 @@
 [
   {
+    "label": "Test all",
+    "command": "bin/test",
+    "args": [],
+    "hide": "on_success",
+    "tags": ["ruby-test"]
+  },
+  {
     "label": "Test /$ZED_CUSTOM_RUBY_TEST_NAME/",
     "command": "bundle",
     "args": [
@@ -13,5 +20,12 @@
     ],
     "hide": "on_success",
     "tags": ["ruby-test"]
+  },
+  {
+    "label": "Start server",
+    "command": "bin/dev",
+    "args": [],
+    "hide": "never",
+    "tags": ["ruby-server"]
   }
 ]

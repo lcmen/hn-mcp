@@ -1,21 +1,14 @@
-RACK_ENV = ENV.fetch("RACK_ENV", "development")
-
-require "bundler"
-Bundler.require
-
-require_relative "hacker_news"
-require_relative "middleware/downcase_headers"
-require_relative "middleware/hijack_response"
-require_relative "tools/get_stories"
-require_relative "tools/get_comments"
+require_relative "bootstrap"
 
 class HnMcpApp < Sinatra::Application
   before { content_type :json }
 
-  use DowncaseHeaders
-  use HijackResponse
-  use FastMcp::Transports::AuthenticatedRackTransport, HackerNews.mcp_server,
-    auth_token: HackerNews.auth_token, logger: HackerNews.logger
+  use Middleware::DowncaseHeaders
+  use Middleware::HijackResponse
+  use FastMcp::Transports::AuthenticatedRackTransport,
+    HackerNews.mcp_server,
+    auth_token: HackerNews.auth_token,
+    logger: HackerNews.logger
 
   set :logger, HackerNews.logger
 
