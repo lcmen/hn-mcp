@@ -25,7 +25,7 @@
     "label": "Start server",
     "command": "bin/dev",
     "args": [],
-    "hide": "never",
+    "hide": "on_success",
     "tags": ["ruby-server"]
   }
 ]
