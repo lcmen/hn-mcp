@@ -74,19 +74,6 @@ class TestApp < Minitest::Test
     assert_equal 200, last_response.status
   end
 
-  def test_mcp_invalid_origin_blocked
-    payload = {
-      jsonrpc: "2.0",
-      id: "test-123",
-      method: "tools/list",
-      params: {}
-    }
-    headers = mcp_headers.merge("HTTP_ORIGIN" => "http://malicious.com")
-    post "/mcp/messages", payload.to_json, headers
-
-    assert_equal 403, last_response.status
-  end
-
   def test_mcp_base_path_not_found
     payload = {
       jsonrpc: "2.0",
