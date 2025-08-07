@@ -7,7 +7,9 @@ class HnMcpApp < Sinatra::Application
   use Middleware::HijackResponse
   use FastMcp::Transports::AuthenticatedRackTransport,
     HackerNews.mcp_server,
+    allowed_origins: [],
     auth_token: HackerNews.auth_token,
+    localhost_only: false,
     logger: HackerNews.logger
 
   set :logger, HackerNews.logger
