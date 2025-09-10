@@ -11,7 +11,7 @@ gem "sinatra", "~> 4.1"
 
 group :development do
   gem "rerun", "~> 0.14"
-  gem "standard", "~> 1.39"
+  gem "standard", "~> 1.51"
 end
 
 group :test do
