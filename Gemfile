@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "3.4.4"
 
-gem "activesupport", "~> 8.0", require: false
+gem "activesupport", "~> 8.1", require: false
 gem "fast-mcp", "~> 1.5.0", require: "fast_mcp"
 gem "puma", "~> 6.6"
 gem "rackup", "~> 2.2"
