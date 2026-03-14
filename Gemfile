@@ -7,7 +7,7 @@ gem "fast-mcp", "~> 1.5.0", require: "fast_mcp"
 gem "puma", "~> 7.1"
 gem "rackup", "~> 2.2"
 gem "rake", "~> 13.3"
-gem "sinatra", "~> 4.1"
+gem "sinatra", "~> 4.2"
 
 group :development do
   gem "rerun", "~> 0.14"
