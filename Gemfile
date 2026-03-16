@@ -16,7 +16,7 @@ end
 
 group :test do
   gem "minitest", "~> 5.25"
-  gem "webmock", "~> 3.25"
+  gem "webmock", "~> 3.26"
 end
 
 group :development, :test do
