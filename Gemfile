@@ -4,7 +4,7 @@ ruby "3.4.4"
 
 gem "activesupport", "~> 8.1", require: false
 gem "fast-mcp", "~> 1.6.0", require: "fast_mcp"
-gem "puma", "~> 7.1"
+gem "puma", "~> 7.2"
 gem "rackup", "~> 2.2"
 gem "rake", "~> 13.3"
 gem "sinatra", "~> 4.2"
