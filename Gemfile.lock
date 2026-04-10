@@ -86,7 +86,7 @@ GEM
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
     mime-types-data (3.2026.0303)
-    minitest (5.25.5)
+    minitest (5.27.0)
     mustermann (3.0.4)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.7.5)
@@ -189,7 +189,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (~> 8.1)
   fast-mcp (~> 1.6.0)
-  minitest (~> 5.25)
+  minitest (~> 5.27)
   puma (~> 7.2)
   rack-test (~> 2.2)
   rackup (~> 2.2)
