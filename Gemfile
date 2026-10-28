@@ -20,5 +20,5 @@ group :test do
 end
 
 group :development, :test do
-  gem "rack-test", "~> 2.2"
+  gem "rack-test", "~> 2.3"
 end
